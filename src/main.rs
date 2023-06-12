@@ -56,6 +56,10 @@ impl<'a> Lexer<'a> {
             state: State::Start,
         }
     }
+
+    fn bump(&mut self) {
+        self.current_char = self.chars.next();
+    }
 }
 
 fn main() {
