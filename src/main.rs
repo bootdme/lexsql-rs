@@ -29,6 +29,7 @@ enum Token {
     Unknown(char),
 }
 
+#[derive(Debug)]
 enum State {
     Start,
     Identifier,
@@ -36,6 +37,7 @@ enum State {
     StringLiteral,
 }
 
+#[derive(Debug)]
 struct Lexer<'a> {
     input: &'a str,
     chars: CharIndices<'a>,
@@ -43,4 +45,22 @@ struct Lexer<'a> {
     state: State,
 }
 
-fn main() {}
+impl<'a> Lexer<'a> {
+    fn new(input: &'a str) -> Self {
+        let mut chars = input.char_indices();
+        let current_char = chars.next();
+        Lexer {
+            input,
+            chars,
+            current_char,
+            state: State::Start,
+        }
+    }
+}
+
+fn main() {
+    let input = "test";
+    let mut lexer = Lexer::new(input);
+
+    println!("{:?}", lexer);
+}
